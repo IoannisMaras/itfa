@@ -40,13 +40,13 @@ jobs:
 
     - name: Run backend tests
       run: |
-      cd itfa_backend
-      python manage.py test
+        cd itfa_backend
+        python manage.py test
 
     - name: Run frontend tests
       run: |
-      cd itfa_frontend
-      npm test
+        cd itfa_frontend
+        npm test
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
