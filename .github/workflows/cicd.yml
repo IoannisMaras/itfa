@@ -65,9 +65,10 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and tag backend Docker image
+    - name: Build and tag backend Docker image and then push
       run: |
         docker buildx build --tag itfa-repo/itfa-backend:latest ./itfa_backend
+        docker push itfa-repo/itfa-backend:latest
 
     - name: Build and tag frontend Docker image
       run: |
