@@ -60,8 +60,8 @@ jobs:
 
     - name: Run backend tests
       run: |
-      docker-compose -f docker-compose.yml up -d db
-      docker run --network host ***/itfa-backend:latest python manage.py test
+        docker-compose -f docker-compose.yml up -d db
+        docker run --network host ***/itfa-backend:latest python manage.py test
 
     - name: Run frontend tests
       run: |
