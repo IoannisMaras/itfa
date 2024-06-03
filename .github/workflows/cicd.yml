@@ -52,11 +52,11 @@ jobs:
 
     - name: Build and tag backend Docker image
       run: |
-        docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/myapp-backend:latest ./backend
+        docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/myapp-backend:latest ./itfa_backend
 
     - name: Build and tag frontend Docker image
       run: |
-        docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/myapp-frontend:latest ./frontend
+        docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/myapp-frontend:latest ./itfa_frontend
 
     - name: Run backend tests
       run: |
