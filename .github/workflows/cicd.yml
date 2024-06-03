@@ -14,23 +14,23 @@ jobs:
 
     services:
       postgres:
-        image: postgres:13
+        image: postgres:15
         env:
-          POSTGRES_DB: mydatabase
-          POSTGRES_USER: myuser
-          POSTGRES_PASSWORD: mypassword
+          POSTGRES_DB: itfa_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 1234
         ports:
           - 5432:5432
         options: >-
-          --health-cmd="pg_isready -U myuser -d mydatabase"
+          --health-cmd="pg_isready -U postgres -d itfa_db"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
 
     env:
-      DATABASE_NAME: mydatabase
-      DATABASE_USER: myuser
-      DATABASE_PASSWORD: mypassword
+      DATABASE_NAME: itfa_db
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: 1234
       DATABASE_HOST: 127.0.0.1
       DATABASE_PORT: 5432
 
@@ -52,25 +52,25 @@ jobs:
 
     - name: Build and tag backend Docker image
       run: |
-        docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/myapp-backend:latest ./itfa_backend
+        docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/itfa-backend:latest ./itfa_backend
 
     - name: Build and tag frontend Docker image
       run: |
-        docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/myapp-frontend:latest ./itfa_frontend
+        docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/itfa-frontend:latest ./itfa_frontend
 
     - name: Run backend tests
       run: |
         docker-compose -f docker-compose.yml up -d db
-        docker run --network host ${{ secrets.DOCKER_USERNAME }}/myapp-backend:latest python manage.py test
+        docker run --network host ${{ secrets.DOCKER_USERNAME }}/itfa-backend:latest python manage.py test
 
     - name: Run frontend tests
       run: |
-        docker run --network host ${{ secrets.DOCKER_USERNAME }}/myapp-frontend:latest npm test
+        docker run --network host ${{ secrets.DOCKER_USERNAME }}/itfa-frontend:latest npm test
 
     - name: Push backend Docker image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/myapp-backend:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/itfa-backend:latest
 
     - name: Push frontend Docker image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/myapp-frontend:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/itfa-frontend:latest
