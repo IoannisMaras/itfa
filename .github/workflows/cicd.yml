@@ -67,18 +67,18 @@ jobs:
 
     - name: Build and tag backend Docker image
       run: |
-        docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/itfa-backend:latest ./itfa_backend
+        docker buildx build --tag itfa-repo/itfa-backend:latest ./itfa_backend
 
     - name: Build and tag frontend Docker image
       run: |
-        docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/itfa-frontend:latest ./itfa_frontend
+        docker buildx build --tag itfa-repo/itfa-frontend:latest ./itfa_frontend
 
     - name: Push backend Docker image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/itfa-backend:latest
+        docker push itfa-repo/itfa-backend:latest
 
     - name: Push frontend Docker image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/itfa-frontend:latest
+        docker push itfa-repo/itfa-frontend:latest
 
    
