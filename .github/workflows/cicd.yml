@@ -38,6 +38,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Run backend tests
+      run: |
+      cd itfa_backend
+      python manage.py test
+
+    - name: Run frontend tests
+      run: |
+      cd itfa_frontend
+      npm test
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
@@ -58,15 +68,6 @@ jobs:
       run: |
         docker buildx build --tag ${{ secrets.DOCKER_USERNAME }}/itfa-frontend:latest ./itfa_frontend
 
-    - name: Run backend tests
-      run: |
-        docker-compose -f docker-compose.yml up -d db
-        docker run --network host ${{ secrets.DOCKER_USERNAME }}/itfa-backend:latest python manage.py test
-
-    - name: Run frontend tests
-      run: |
-        docker run --network host ${{ secrets.DOCKER_USERNAME }}/itfa-frontend:latest npm test
-
     - name: Push backend Docker image
       run: |
         docker push ${{ secrets.DOCKER_USERNAME }}/itfa-backend:latest
@@ -74,3 +75,5 @@ jobs:
     - name: Push frontend Docker image
       run: |
         docker push ${{ secrets.DOCKER_USERNAME }}/itfa-frontend:latest
+
+   
