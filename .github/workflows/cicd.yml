@@ -50,7 +50,7 @@ jobs:
       run: |
         cd itfa_frontend
         npm install
-        npm test
+        ng test --no-watch --no-progress --browsers=ChromeHeadless
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
