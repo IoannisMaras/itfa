@@ -1,0 +1,101 @@
+<div class="logo h-16 flex items-center justify-center w-64">
+  <div>ITFA lOGO</div>
+</div>
+<div
+  class="menu-container relative flex flex-col flex-1 min-h-0 pt-0 bg-purple-500"
+>
+  <div class="flex flex-col flex-1 py-5 overflow-y-auto">
+    <div
+      class="flex-1 pr-3 space-y-1 divide-y divide-red-200  "
+    >
+      <ul class="pb-2 space-y-2 pl-2">
+        <!-- Menu Items -->
+        <ng-container *ngFor="let sidenavItem of sidenavItems">
+          <li class="rounded"
+          [ngClass]="
+                        urlSrartsWith(sidenavItem.routerLink) 
+                          ? 'bg-purple-300  hover:bg-purple-100 rounded'
+                          : sidenavItem.items ===undefined ? 'bg-purple-800 hover:bg-purple-100 ':'bg-purple-800'
+                      "
+          >
+            
+            <ng-container *ngIf="sidenavItem.items !== undefined">
+              <mat-expansion-panel hideToggle class="p-0 m-0 w-full ">
+                <mat-expansion-panel-header class="p-0 m-0 grow w-full ">
+                  <mat-panel-title class="p-0 m-0">
+                    <div
+                      
+                      class="flex  p-2 w-full text-white"
+                    >
+                      <mat-icon
+                        aria-hidden="false"
+                        aria-label="needs to be fixed"
+                        [fontIcon]="sidenavItem.fontIcon"
+                      ></mat-icon>
+                      <span class="ml-3 te" sidebar-toggle-item="">{{
+                        sidenavItem.title
+                      }}</span>
+                      <div
+                        class="grow flex flex-row items-center justify-end align-middle text-right"
+                      >
+                        <mat-icon
+                          aria-hidden="false"
+                          aria-label="needs to be fixed"
+                          fontIcon="expand_more"
+                        ></mat-icon>
+                      </div>
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <ng-container *ngFor="let item of sidenavItem.items">
+                  <li>
+                    <a
+                      [routerLink]="item.routerLink"
+                      routerLinkActive="text-black text-bold font-extrabold bg-purple-300"
+                      [routerLinkActiveOptions]="item.routerLinkActiveOptions"
+                      class="flex rounded p-2 m-1 text-white  hover:bg-purple-100 hover:text-black"
+                    >
+                      <mat-icon
+                        aria-hidden="false"
+                        aria-label="needs to be fixed"
+                        [fontIcon]="item.fontIcon"
+                      ></mat-icon>
+                      <span class="ml-3" sidebar-toggle-item="">{{
+                        item.title
+                      }}</span>
+                    </a>
+                  </li>
+                </ng-container>
+              </mat-expansion-panel>
+            </ng-container>
+            <ng-container
+              *ngIf="
+                sidenavItem.items === undefined ||
+                (sidenavItem.items !== undefined &&
+                  sidenavItem.items.length == 0)
+              "
+            >
+              
+              <a
+                
+                [routerLink]="sidenavItem.routerLink"
+                routerLinkActive="text-black bg-purple-300"
+                [routerLinkActiveOptions]="sidenavItem.routerLinkActiveOptions"
+                class="flex  p-2 text-white hover:bg-purple-300 hover:text-black"
+              >
+                <mat-icon
+                  aria-hidden="false"
+                  aria-label="needs to be fixed"
+                  [fontIcon]="sidenavItem.fontIcon"
+                ></mat-icon>
+                <span class="ml-3" sidebar-toggle-item="">{{
+                  sidenavItem.title
+                }}</span>
+              </a>
+            </ng-container>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</div>

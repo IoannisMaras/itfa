@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.action-buttons {@apply flex flex-col md:flex-row items-center gap-2.5}
+    
+    .button{@apply flex flex-row items-center rounded px-5 py-2.5 hover:brightness-100 disabled:text-gray-500}
+    .pill{@apply flex flex-row items-center rounded-full text-white}
+    .outline{@apply outline-1 bg-transparent}
+    
+    .button.link{@apply text-gray-700 hover:text-blue-100 hover:underline}
+    .button.success{}
+    .button.warning{}
+    .button.error{}
+
+    .button .mat-icon{transition: all 0.3s ease;font-size: 1.125rem!important;line-height: 1.5rem!important;}
+    .pill .mat-icon{transition: all 0.3s ease; @apply p-2}
+    .button:hover .mat-icon, .pill:hover .mat-icon{transform: translateX(5px);transition: all 0.3s ease;@apply border-0}
+
+    .purple{@apply text-white bg-purple-500}
+
+    html, body {height: 100%;}
+
+    .cdk-global-overlay-wrapper, .cdk-overlay-container {
+        height:100%;
+        }
+
+        @import '@angular/cdk/overlay-prebuilt.css';

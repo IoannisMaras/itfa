@@ -1,0 +1,91 @@
+<div class="flex justify-center items-center h-full">
+  <div class="bg-gray-100 p-6 rounded shadow-md" [ngClass]="dependentsFormArray.length === 0?'w-1/2':''">
+    
+    <div class="mb-4">
+        <div class="mb-10 flex">
+        <div class="text-2xl font-bold">Edit Dependents</div>
+        <div class="grow"></div>
+        <button (click)="addDependent()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Add Dependent
+        </button>
+    </div>
+      <div *ngIf="dependentsFormArray.length === 0" class="text-center text-gray-500">
+        There are no dependents
+    </div>
+    <div *ngFor="let dependentFormGroup of dependentsFormArray; let i = index">
+      <form [formGroup]="dependentFormGroup" class="flex flex-row gap-4">
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700 font-bold mb-2"
+            >Name:</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="w-full border border-gray-300 p-2 rounded"
+            formControlName="name"
+          />
+          <div
+            *ngIf="
+              dependentFormGroup.get('name')!.invalid &&
+              dependentFormGroup.get('name')!.touched
+            "
+            class="text-red-500"
+          >
+            Invalid name
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="age" class="block text-gray-700 font-bold mb-2"
+            >Age:</label
+          >
+          <input
+            type="number"
+            id="age"
+            name="age"
+            class="w-full border border-gray-300 p-2 rounded"
+            formControlName="age"
+          />
+          <div
+            *ngIf="
+              dependentFormGroup.get('age')!.invalid &&
+              dependentFormGroup.get('age')!.touched
+            "
+            class="text-red-500"
+          >
+            Invalid age
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="gross_income" class="block text-gray-700 font-bold mb-2"
+            >Gross Income (&euro;):</label
+          >
+          <input
+            type="number"
+            id="gross_income"
+            name="gross_income"
+            class="w-full border border-gray-300 p-2 rounded"
+            formControlName="gross_income"
+          />
+          <div
+            *ngIf="
+              dependentFormGroup.get('gross_income')!.invalid &&
+              dependentFormGroup.get('gross_income')!.touched
+            "
+            class="text-red-500"
+          >
+            Invalid gross income
+          </div>
+        </div>
+        <div class="mb-4 flex flex-col justify-end items-end">
+          <button
+            (click)="removeDependent(i)"
+            class="bg-red-500 text-white px-4 py-2 rounded"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

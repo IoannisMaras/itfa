@@ -1,0 +1,44 @@
+<div class="flex justify-center items-center h-full">
+    <form class="bg-gray-100 p-6 rounded shadow-md" [formGroup]="personalDetailsForm">
+        <div class="mb-4">
+            <label for="gross_income" class="block text-gray-700 font-bold mb-2">Gross Income (&euro;):</label>
+            <input type="number" id="gross_income" name="gross_income" class="w-full border border-gray-300 p-2 rounded" formControlName="gross_income">
+            <div *ngIf="personalDetailsForm.get('gross_income')!.invalid && personalDetailsForm.get('gross_income')!.touched" class="text-red-500">Invalid gross income</div>
+        </div>
+        <div class="mb-4">
+            <label for="expenses" class="block text-gray-700 font-bold mb-2">Total Expenses (&euro;):</label>
+            <input type="number" id="expenses" name="expenses" class="w-full border border-gray-300 p-2 rounded" formControlName="total_expenses">
+            <div *ngIf="personalDetailsForm.get('total_expenses')!.invalid && personalDetailsForm.get('total_expenses')!.touched" class="text-red-500">Invalid total expenses</div>
+        </div>
+        <div class="mb-4">
+            <label for="age" class="block text-gray-700 font-bold mb-2">Age :</label>
+            <input type="number" id="age" name="age" class="w-full border border-gray-300 p-2 rounded" formControlName="age">
+            <div *ngIf="personalDetailsForm.get('age')!.invalid && personalDetailsForm.get('age')!.touched" class="text-red-500">Invalid age</div>
+        </div>
+        <div class="mb-4">
+            <label for="tax_type" class="block text-gray-700 font-bold mb-2">Type:</label>
+            <select id="tax_type" name="tax_type" class="w-full border border-gray-300 p-2 rounded" formControlName="tax_type">
+                <option value="individual">Individual</option>
+                <option value="business">Business</option>
+            </select>
+            <div *ngIf="personalDetailsForm.get('tax_type')!.invalid && personalDetailsForm.get('tax_type')!.touched" class="text-red-500">Invalid tax type</div>
+        </div>
+        <div class="mb-4">
+            <label for="country" class="block text-gray-700 font-bold mb-2">Country:</label>
+            <select id="country" name="country" class="w-full border border-gray-300 p-2 rounded" formControlName="country">
+                <option value="greece">
+                    <!-- <img src="../../../assets/flags/greek_flag.ico" alt="Greece Flag" class="inline-block w-4 h-4 mr-2"> -->
+                    Greece
+                </option>
+                <option value="italy">
+                    <!-- <img src="../../../assets/flags/italy.ico" alt="Italy Flag" class="inline-block w-4 h-4 mr-2"> -->
+                    Italy
+                </option>
+            </select>
+            <div *ngIf="personalDetailsForm.get('country')!.invalid && personalDetailsForm.get('country')!.touched" class="text-red-500">Invalid country</div>
+        </div>
+        <button type="submit" (click)="onSave($event)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save</button>
+    </form>
+</div>
+
+

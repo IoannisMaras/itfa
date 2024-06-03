@@ -1,0 +1,37 @@
+<div class="page-container">
+    <mat-sidenav-container class="w-full" [hasBackdrop]="sidenav_right.opened">
+      <!-- Sidenav Left Start -->
+      <mat-sidenav #sidenav_left position="start" [mode]="(isMobile$ | async) ? 'over' : 'side'" (click)="sidenav_left.mode === 'side' || sidenav_left.close()" [opened]="(isMobile$ | async) ? false : true" [disableClose]="true" fixedInViewport="true" class="sidenav bg-neutral-50" [ngClass]="{'hasBackDrop': sidenav_right.opened}">
+        <app-sidenav></app-sidenav>
+      </mat-sidenav>
+      <!-- Sidenav Left End -->
+      <!-- Sidenav Right Start -->
+      <mat-sidenav #sidenav_right position="end" mode="over" [disableClose]="true" fixedInViewport="true" class="bg-white w-1/2">
+        <ng-template>
+        <!-- This will later become a router with lazy loaded components -->
+        </ng-template>
+      </mat-sidenav>
+      <!-- Sidenav Right End -->
+  
+      <mat-sidenav-content >
+        <div class="h-screen flex flex-col">
+<!-- Header Start -->
+<div class="h-16 px-2.5 bg-purple-500 text-white">
+  <div class="h-full drop-shadow rounded-lg h-15 flex items-center justify-centerpx-5">
+    <mat-icon class="cursor-pointer toggle-icon mr-2.5" aria-hidden="false" aria-label="toggle button" [fontIcon]="sidenav_left.opened ? 'menu' : 'sort'" (click)="sidenav_left.toggle()"></mat-icon>
+    <!-- <button class="" (click)="sidenav_right.toggle()">right</button> -->
+    <app-header class="w-full h-full flex items-center"></app-header>
+  </div>
+</div>
+<!-- Header End -->
+
+<!-- Main Start -->
+<main class="main overflow-y-auto grow" (click)="sidenav_left.mode === 'side' || sidenav_left.close()">
+  <router-outlet></router-outlet>
+</main>
+<!-- Main End -->
+        </div>
+        
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
