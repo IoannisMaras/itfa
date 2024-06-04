@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 
 const defaultRoutes: Routes = [
   {path:'dashboard', pathMatch: 'full', loadComponent: () => import('./pages/dashboard-page/dashboard-page.component').then(m => m.DashboardPageComponent)},

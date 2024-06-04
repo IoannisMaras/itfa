@@ -18,7 +18,6 @@ import { LayoutService } from 'src/app/services/layout.service';
 //--------------------------------------------------------------------------
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { SidenavComponent } from 'src/app/components/sidenav/sidenav.component';
-import { RouterTestingModule } from '@angular/router/testing';
 
 
 @Component({
@@ -26,7 +25,7 @@ import { RouterTestingModule } from '@angular/router/testing';
   templateUrl: './default.component.html',
   styleUrls: ['./default.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterTestingModule, MatSidenavModule, MatIconModule, HeaderComponent, SidenavComponent],
+  imports: [CommonModule, RouterModule, MatSidenavModule, MatIconModule, HeaderComponent, SidenavComponent],
 })
 export class DefaultComponent implements OnInit {
 

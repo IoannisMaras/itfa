@@ -13,7 +13,7 @@ export class AuthGuardService implements CanActivate {
  
     canActivate(route: ActivatedRouteSnapshot,
                 state: RouterStateSnapshot): boolean | UrlTree {
-        return true;
+        //return true; FOR DEBUG
         if (!this.authService.token) {
             //redirect to login
             this.router.navigate(['/login']);

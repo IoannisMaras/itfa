@@ -4,15 +4,16 @@ import { Injectable, isDevMode, NgZone } from '@angular/core';
 import { NEVER, Observable, Subject, firstValueFrom, from, lastValueFrom, map, take, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Env } from '../interfaces/env';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  constructor(private http: HttpClient, private router: Router, private snackbar: MatSnackBar,private zone: NgZone) { }
+  constructor(private http: HttpClient,private authService : AuthService, private router: Router, private snackbar: MatSnackBar,private zone: NgZone) { }
   private envUrl = isDevMode() ? "assets/data/config-dev.json" : "assets/data/config.json";
-  private env: Env = { BACKEND_URL: '', DEBUG: false };
+  private env: Env = { BACKEND_URL: 'http://127.0.0.1:8000/', DEBUG: false };
 
 
   /**
@@ -20,28 +21,58 @@ export class ApiService {
   | Requests
   |--------------------------------------------------------------------------
   **/
-  public getRequest(uri: string, responseType: any = ""): Observable<any> {
+  public getRequest(uri: string, responseType: any = "json",includeToken:boolean=true): Observable<any> {
     if (responseType) {
+      if (includeToken) {
+      const headers = { Authorization: `Bearer ${this.authService.getToken()}` };
+      return this.http.get(this.env.BACKEND_URL + uri, { headers, responseType: responseType });
+      } else {
       return this.http.get(this.env.BACKEND_URL + uri, { responseType: responseType });
+      }
     } else {
+      if (includeToken) {
+      const headers = { Authorization: `Bearer ${this.authService.getToken()}` };
+      return this.http.get(this.env.BACKEND_URL + uri, { headers });
+      } else {
       return this.http.get(this.env.BACKEND_URL + uri);
+      }
     }
   }
 
-  public postRequest(uri: string, postData: any, responseType: any = 'json') {
+  public postRequest(uri: string, postData: any, responseType: any = 'json',includeToken:boolean=true) {
     if (responseType) {
-      return this.http.post(this.env.BACKEND_URL + uri, postData, { responseType: responseType ,withCredentials: true });
+      if (includeToken) {
+      const headers = { Authorization: `Token ${this.authService.getToken()}` };
+      return this.http.post(this.env.BACKEND_URL + uri, postData, { headers, responseType: responseType, withCredentials: false });
+      } else {
+      return this.http.post(this.env.BACKEND_URL + uri, postData, { responseType: responseType, withCredentials: false });
+      }
     } else {
-      return this.http.post(this.env.BACKEND_URL + uri, postData);
+      if (includeToken) {
+      const headers = { Authorization: `Token ${this.authService.getToken()}` };
+      return this.http.post(this.env.BACKEND_URL + uri, postData, { headers, withCredentials: false });
+      } else {
+      return this.http.post(this.env.BACKEND_URL + uri, postData, { withCredentials: false });
+      }
     }
   }
 
-  public putRequest(uri: string, postData: any) {
-    return this.http.put(this.env.BACKEND_URL + uri, postData);
+  public putRequest(uri: string, putData: any, includeToken:boolean=true) {
+    if (includeToken) {
+      const headers = { Authorization: `Bearer ${this.authService.getToken()}` };
+      return this.http.put(this.env.BACKEND_URL + uri, putData, { headers });
+    } else {
+      return this.http.put(this.env.BACKEND_URL + uri, putData);
+    }
   }
 
-  public patchRequest(uri: string, postData: any) {
-    return this.http.patch(this.env.BACKEND_URL + uri, postData);
+  public patchRequest(uri: string, patchData: any, includeToken:boolean=true) {
+    if (includeToken) {
+      const headers = { Authorization: `Bearer ${this.authService.getToken()}` };
+      return this.http.patch(this.env.BACKEND_URL + uri, patchData, { headers });
+    } else {
+      return this.http.patch(this.env.BACKEND_URL + uri, patchData);
+    }
   }
 
   /**

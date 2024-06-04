@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatIconModule} from '@angular/material/icon';
+import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,11 +14,16 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class HeaderComponent {
 
-  //constructor(private authService: MsalService ) { }
+  constructor(private apiService :ApiService, private authSerivce:AuthService) { }
 
   public logout() {
-    // const logoutRequest = { account: this.authService.instance.getActiveAccount() }
-    // this.authService.logout(logoutRequest);
-    // localStorage.clear();
+    this.apiService.postRequest('logout/',{}).subscribe({
+      next : (response: any) => {
+        this.authSerivce.logout();
+      },
+      error : (error: any) => {
+        console.log(error);
+      }
+    });
   }
 }
