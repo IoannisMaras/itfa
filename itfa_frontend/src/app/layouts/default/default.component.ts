@@ -33,7 +33,9 @@ export class DefaultComponent implements OnInit {
 
   public isMobile$ = this.layoutService.isMobile$;
   ngOnInit(): void {
-    this.router.navigate(['/dashboard']);
+    if (this.router.url === '') {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
 }

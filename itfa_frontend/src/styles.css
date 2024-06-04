@@ -27,3 +27,5 @@
         }
 
         @import '@angular/cdk/overlay-prebuilt.css';
+
+        @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";

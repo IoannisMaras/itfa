@@ -24,14 +24,14 @@ export class ApiService {
   public getRequest(uri: string, responseType: any = "json",includeToken:boolean=true): Observable<any> {
     if (responseType) {
       if (includeToken) {
-      const headers = { Authorization: `Bearer ${this.authService.getToken()}` };
+      const headers = { Authorization: `Token ${this.authService.getToken()}` };
       return this.http.get(this.env.BACKEND_URL + uri, { headers, responseType: responseType });
       } else {
       return this.http.get(this.env.BACKEND_URL + uri, { responseType: responseType });
       }
     } else {
       if (includeToken) {
-      const headers = { Authorization: `Bearer ${this.authService.getToken()}` };
+      const headers = { Authorization: `Token ${this.authService.getToken()}` };
       return this.http.get(this.env.BACKEND_URL + uri, { headers });
       } else {
       return this.http.get(this.env.BACKEND_URL + uri);
@@ -59,7 +59,7 @@ export class ApiService {
 
   public putRequest(uri: string, putData: any, includeToken:boolean=true) {
     if (includeToken) {
-      const headers = { Authorization: `Bearer ${this.authService.getToken()}` };
+      const headers = { Authorization: `Token ${this.authService.getToken()}` };
       return this.http.put(this.env.BACKEND_URL + uri, putData, { headers });
     } else {
       return this.http.put(this.env.BACKEND_URL + uri, putData);
@@ -68,7 +68,7 @@ export class ApiService {
 
   public patchRequest(uri: string, patchData: any, includeToken:boolean=true) {
     if (includeToken) {
-      const headers = { Authorization: `Bearer ${this.authService.getToken()}` };
+      const headers = { Authorization: `Token ${this.authService.getToken()}` };
       return this.http.patch(this.env.BACKEND_URL + uri, patchData, { headers });
     } else {
       return this.http.patch(this.env.BACKEND_URL + uri, patchData);
@@ -84,10 +84,11 @@ export class ApiService {
   public handleError(error: any) {
     this.zone.run(() => {
         if (error.status == 401 || error.status == 0) { // Unauthorized or no communication with backend
-            this.snackbar.open('An error occurred: ' + error.error.message, 'OK',{
+            this.snackbar.open('Token has expired please login again', 'OK',{
                 verticalPosition: 'bottom',
                 horizontalPosition: 'center',
               });
+              this.authService.logout();
         }
         else if (error.error instanceof ErrorEvent) {
           // A client-side or network error occurred. Handle it accordingly.

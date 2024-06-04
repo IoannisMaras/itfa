@@ -4,16 +4,36 @@ from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
-
+from .models import PersonalDetails
 from .serializers import PersonalDetailsSerializer
 
 class PersonalDetailsView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
-        serializer = PersonalDetailsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.create(validated_data={'user_id': request.user.id})
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    def get(self, request):
+        if(PersonalDetails.objects.filter(user=request.user).exists()):
+            personal_details = PersonalDetails.objects.get(user=request.user)
+            serializer = PersonalDetailsSerializer(personal_details)
+            return Response(serializer.data)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message":"No personal details found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request):
+
+        if(PersonalDetails.objects.filter(user=request.user).exists()):
+            #update
+            personal_details = PersonalDetails.objects.get(user=request.user)
+            serializer = PersonalDetailsSerializer(personal_details, data={"user":request.user.id,**request.data})
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            #create
+            serializer = PersonalDetailsSerializer(data={"user":request.user.id,**request.data})
+            if serializer.is_valid():
+                serializer.save(user=request.user)
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
