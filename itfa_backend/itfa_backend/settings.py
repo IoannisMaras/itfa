@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'account',
     'personal_details',
     'dependents',
+    'vehicles',
+    'employees',
+    'real_estate',
 ]
 
 MIDDLEWARE = [
