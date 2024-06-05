@@ -4,6 +4,7 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } fr
 import { Dependents } from 'src/app/interfaces/dependents';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApiService } from 'src/app/services/api.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dependents-page',
@@ -14,7 +15,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class DependentsPageComponent implements OnInit{
 
-  constructor(private apiService:ApiService) { }
+  constructor(private apiService:ApiService,private snackBar : MatSnackBar) { }
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -50,7 +51,43 @@ export class DependentsPageComponent implements OnInit{
   onSave($event: any) {
     $event.preventDefault();
     
-    // console.log(this.dependentsForm.value);
+    const dependents = this.dependentsFormArray.map(dependent => {
+      return {
+        id: dependent.get('id')!.value,
+        name: dependent.get('name')!.value,
+        age: dependent.get('age')!.value,
+        gross_income: dependent.get('gross_income')!.value
+      };
+    });
+
+    this.apiService.postRequest('dependents/', dependents).subscribe({
+      next : (response: any) => {
+        let successFullSaves = 0;
+        let failedSaves = 0;
+
+        response.forEach((dependent: any, index: number) => {
+
+          if(dependent.success){
+            successFullSaves++;
+            this.dependentsFormArray[index].patchValue(dependent.data);
+          }else{
+            failedSaves++;
+            Object.keys(dependent.data).forEach((key: string) => {
+              const formControl = this.dependentsFormArray[index].get(key);
+              if (formControl) {
+                formControl.markAsTouched();
+                formControl.setErrors({ serverError: dependent.data[key] });
+              }
+            });
+          }
+
+          this.snackBar.open(`${successFullSaves} dependents saved successfully. ${failedSaves} failed.`, 'Close');
+        });
+      },
+      error : (error: any) => {
+        this.apiService.handleError(error);
+      }
+    });
   }
 
   removeDependent(index: number) {
