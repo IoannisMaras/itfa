@@ -1,4 +1,8 @@
 <div class="flex justify-center items-center h-full">
+  <div *ngIf="isLoading" class="flex flex-col justify-center items-center">
+    <mat-spinner diameter="150"></mat-spinner>
+    <p class="text-xl">Loading...</p>
+</div>
   <div
     class="bg-gray-100 p-6 rounded shadow-md"
     [ngClass]="dependentsFormArray.length === 0 ? 'w-1/2' : ''"

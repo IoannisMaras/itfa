@@ -6,6 +6,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { SidenavComponent } from 'src/app/components/sidenav/sidenav.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DefaultComponent', () => {
   let component: DefaultComponent;
@@ -13,7 +16,7 @@ describe('DefaultComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DefaultComponent,BrowserAnimationsModule,MatSidenavModule, MatIconModule, HeaderComponent, SidenavComponent]
+      imports: [DefaultComponent,RouterTestingModule,BrowserAnimationsModule,MatSidenavModule, MatIconModule, HeaderComponent, SidenavComponent,HttpClientModule,MatSnackBarModule]
     });
     fixture = TestBed.createComponent(DefaultComponent);
     component = fixture.componentInstance;

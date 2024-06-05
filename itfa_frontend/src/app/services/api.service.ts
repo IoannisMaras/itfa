@@ -75,6 +75,15 @@ export class ApiService {
     }
   }
 
+  public deleteRequest(uri: string, includeToken:boolean=true) {
+    if (includeToken) {
+      const headers = { Authorization: `Token ${this.authService.getToken()}` };
+      return this.http.delete(this.env.BACKEND_URL + uri, { headers});
+    } else {
+      return this.http.delete(this.env.BACKEND_URL + uri);
+    }
+  }
+
   /**
   |--------------------------------------------------------------------------
   | Response
