@@ -7,7 +7,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 from real_estate import views as real_estate_views
 from vehicles import views as vehicles_views
 from employees import views as employees_views
-
+from ai_reccomendations import views as ai_reccomendations_views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('login/', obtain_auth_token),
@@ -16,10 +16,11 @@ urlpatterns = [
     re_path('personal-details/', personal_details_views.PersonalDetailsView.as_view()),
     path('dependents/', dependents_views.DependentsView.as_view()),
     path('dependents/<int:pk>/', dependents_views.DependentsView.as_view()),
-    path('real-estate/', real_estate_views.RealEstateView.as_view()),
-    path('real-estate/<int:pk>/', real_estate_views.RealEstateView.as_view()),
+    path('real-estates/', real_estate_views.RealEstateView.as_view()),
+    path('real-estates/<int:pk>/', real_estate_views.RealEstateView.as_view()),
     path('vehicles/', vehicles_views.VehiclesView.as_view()),
     path('vehicles/<int:pk>/', vehicles_views.VehiclesView.as_view()),
     path('employees/', employees_views.EmployeesView.as_view()),
     path('employees/<int:pk>/', employees_views.EmployeesView.as_view()),
+    path('ai-reccomendations/', ai_reccomendations_views.AiReccomendations.as_view()),
 ]

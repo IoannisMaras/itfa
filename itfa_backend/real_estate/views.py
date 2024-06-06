@@ -11,7 +11,7 @@ class RealEstateView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        real_estates = request.user.real_estate_set.all()
+        real_estates = request.user.realestate_set.all()
         serializer = RealEstateSerializer(real_estates, many=True)
         return Response(serializer.data)
     
@@ -20,7 +20,7 @@ class RealEstateView(APIView):
         for real_estate in request.data:
             real_estate['user'] = request.user.id
             if real_estate.get('id'):
-                real_estate_instance = request.user.real_estate_set.get(id=real_estate.get('id'))
+                real_estate_instance = request.user.realestate_set.get(id=real_estate.get('id'))
                 serializer = RealEstateSerializer(real_estate_instance, data=real_estate)
             else:
                 serializer = RealEstateSerializer(data=real_estate)
@@ -33,6 +33,6 @@ class RealEstateView(APIView):
         return Response(response_array)
     
     def delete(self, request,pk, *args, **kwargs):
-        real_estate = request.user.real_estate_set.get(id=pk)
+        real_estate = request.user.realestate_set.get(id=pk)
         real_estate.delete()
         return Response({"message":"Real Estate deleted successfully"})

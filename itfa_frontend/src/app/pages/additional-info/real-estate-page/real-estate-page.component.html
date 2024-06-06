@@ -1,1 +1,128 @@
-<p>real-estate-page works!</p>
+<div class="flex justify-center items-center h-full">
+  <div *ngIf="isLoading" class="flex flex-col justify-center items-center">
+    <mat-spinner diameter="150"></mat-spinner>
+    <p class="text-xl">Loading...</p>
+  </div>
+  <div
+    class="bg-gray-100 p-6 rounded shadow-md"
+    [ngClass]="realEstatesFormArray.length === 0 ? 'w-1/2' : ''"
+    *ngIf="!isLoading"
+  >
+    <div class="mb-4">
+      <div class="mb-10 flex">
+        <div class="text-2xl font-bold">Edit Real Estates</div>
+        <div class="grow"></div>
+        <button
+          type="submit"
+          (click)="onSave($event)"
+          class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+        >
+          Save
+        </button>
+        <button
+          (click)="addRealEstate()"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add Real Estate
+        </button>
+      </div>
+      <div
+        *ngIf="realEstatesFormArray.length === 0"
+        class="text-center text-gray-500"
+      >
+        There are no real estates
+      </div>
+      <div
+        *ngFor="let realEstateFormGroup of realEstatesFormArray; let i = index"
+      >
+        <form [formGroup]="realEstateFormGroup" class="flex flex-row gap-4">
+          <div class="mb-4">
+            <label for="value" class="block text-gray-700 font-bold mb-2"
+              >Value (&euro;):</label
+            >
+            <input
+              type="number"
+              id="value"
+              name="value"
+              class="w-full border border-gray-300 p-2 rounded"
+              formControlName="value"
+            />
+            <div
+              *ngIf="
+                realEstateFormGroup.get('value')!.invalid &&
+                realEstateFormGroup.get('value')!.touched
+              "
+              class="text-red-500"
+            >
+              {{ realEstateFormGroup.get('value')!.errors?.["serverError"]
+                  ? realEstateFormGroup.get('value')!.errors?.["serverError"]
+                  : 'Invalid value' }}
+            </div>
+          </div>
+          <div class="mb-4">
+            <label
+              for="property_type"
+              class="block text-gray-700 font-bold mb-2"
+              >Property Type:</label
+            >
+            <select
+              id="property_type"
+              name="property_type"
+              class="w-full border border-gray-300 p-2 rounded"
+              formControlName="property_type"
+            >
+              <option value="house">House</option>
+              <option value="apartment">Apartment</option>
+              <option value="land">Land</option>
+              <option value="business">Business</option>
+            </select>
+            <div
+              *ngIf="
+                realEstateFormGroup.get('property_type')!.invalid &&
+                realEstateFormGroup.get('property_type')!.touched
+              "
+              class="text-red-500"
+            >
+              {{ realEstateFormGroup.get('property_type')!.errors?.["serverError"]
+                    ? realEstateFormGroup.get('property_type')!.errors?.["serverError"]
+                    : 'Invalid tax type' }}
+            </div>
+          </div>
+          <div class="mb-4">
+            <label
+              for="square_meters"
+              class="block text-gray-700 font-bold mb-2"
+              >Square Meters :</label
+            >
+            <input
+              type="number"
+              id="square_meters"
+              name="square_meters"
+              class="w-full border border-gray-300 p-2 rounded"
+              formControlName="square_meters"
+            />
+            <div
+              *ngIf="
+                realEstateFormGroup.get('square_meters')!.invalid &&
+                realEstateFormGroup.get('square_meters')!.touched
+              "
+              class="text-red-500"
+            >
+              {{ realEstateFormGroup.get('square_meters')!.errors?.["serverError"]
+                    ? realEstateFormGroup.get('square_meters')!.errors?.["serverError"]
+                    : 'Invalid square_meters' }}
+            </div>
+          </div>
+          <div class="mb-4 flex flex-col justify-end items-end">
+            <button
+              (click)="removeRealEstate(i)"
+              class="bg-red-500 text-white px-4 py-2 rounded"
+            >
+              Delete
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

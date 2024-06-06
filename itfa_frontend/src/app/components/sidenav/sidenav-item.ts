@@ -61,6 +61,14 @@ export const sidenavItems : sidenavItemsInterface[] = [
           
         ]    
 
+    },
+    {
+        routerLink: "ai-reccomendations",
+        routerLinkActiveOptions: { exact: true },
+        label: "AI Reccomendations",
+        title: "AI Reccomendations",
+        fontIcon: "api",
+        visibility: true,
     }
 
 ]

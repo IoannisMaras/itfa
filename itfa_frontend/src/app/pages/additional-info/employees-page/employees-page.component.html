@@ -1,120 +1,118 @@
 <div class="flex justify-center items-center h-full">
-    <div *ngIf="isLoading" class="flex flex-col justify-center items-center">
-      <mat-spinner diameter="150"></mat-spinner>
-      <p class="text-xl">Loading...</p>
+  <div *ngIf="isLoading" class="flex flex-col justify-center items-center">
+    <mat-spinner diameter="150"></mat-spinner>
+    <p class="text-xl">Loading...</p>
   </div>
-    <div
-      class="bg-gray-100 p-6 rounded shadow-md"
-      [ngClass]="employeesFormArray.length === 0 ? 'w-1/2' : ''"
-    >
-      <div class="mb-4">
-        <div class="mb-10 flex">
-          <div class="text-2xl font-bold">Edit Employees</div>
-          <div class="grow"></div>
-          <button
-            type="submit"
-            (click)="onSave($event)"
-            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
-          >
-            Save
-          </button>
-          <button
-            (click)="addEmployee()"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Add Employee
-          </button>
-        </div>
-        <div
-          *ngIf="employeesFormArray.length === 0"
-          class="text-center text-gray-500"
+  <div
+    class="bg-gray-100 p-6 rounded shadow-md"
+    [ngClass]="employeesFormArray.length === 0 ? 'w-1/2' : ''"
+    *ngIf="!isLoading"
+  >
+    <div class="mb-4">
+      <div class="mb-10 flex">
+        <div class="text-2xl font-bold">Edit Employees</div>
+        <div class="grow"></div>
+        <button
+          type="submit"
+          (click)="onSave($event)"
+          class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
         >
-          There are no employees
-        </div>
-        <div
-          *ngFor="let employeeFormGroup of employeesFormArray; let i = index"
+          Save
+        </button>
+        <button
+          (click)="addEmployee()"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          <form [formGroup]="employeeFormGroup" class="flex flex-row gap-4">
-            <div class="mb-4">
-              <label for="name" class="block text-gray-700 font-bold mb-2"
-                >Name:</label
-              >
-              <input
-                type="text"
-                id="name"
-                name="name"
-                class="w-full border border-gray-300 p-2 rounded"
-                formControlName="name"
-              />
-              <div
-                *ngIf="
-                  employeeFormGroup.get('name')!.invalid &&
-                  employeeFormGroup.get('name')!.touched
-                "
-                class="text-red-500"
-              >
-                {{ employeeFormGroup.get('name')!.errors?.["serverError"]
+          Add Employee
+        </button>
+      </div>
+      <div
+        *ngIf="employeesFormArray.length === 0"
+        class="text-center text-gray-500"
+      >
+        There are no employees
+      </div>
+      <div *ngFor="let employeeFormGroup of employeesFormArray; let i = index">
+        <form [formGroup]="employeeFormGroup" class="flex flex-row gap-4">
+          <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-bold mb-2"
+              >Name:</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="w-full border border-gray-300 p-2 rounded"
+              formControlName="name"
+            />
+            <div
+              *ngIf="
+                employeeFormGroup.get('name')!.invalid &&
+                employeeFormGroup.get('name')!.touched
+              "
+              class="text-red-500"
+            >
+              {{ employeeFormGroup.get('name')!.errors?.["serverError"]
                   ? employeeFormGroup.get('name')!.errors?.["serverError"]
                   : 'Invalid name' }}
-              </div>
             </div>
-            <div class="mb-4">
-              <label for="age" class="block text-gray-700 font-bold mb-2"
-                >Age:</label
-              >
-              <input
-                type="number"
-                id="age"
-                name="age"
-                class="w-full border border-gray-300 p-2 rounded"
-                formControlName="age"
-              />
-              <div
-                *ngIf="
-                  employeeFormGroup.get('age')!.invalid &&
-                  employeeFormGroup.get('age')!.touched
-                "
-                class="text-red-500"
-              >
-                {{ employeeFormGroup.get('age')!.errors?.["serverError"]
+          </div>
+          <div class="mb-4">
+            <label for="age" class="block text-gray-700 font-bold mb-2"
+              >Age:</label
+            >
+            <input
+              type="number"
+              id="age"
+              name="age"
+              class="w-full border border-gray-300 p-2 rounded"
+              formControlName="age"
+            />
+            <div
+              *ngIf="
+                employeeFormGroup.get('age')!.invalid &&
+                employeeFormGroup.get('age')!.touched
+              "
+              class="text-red-500"
+            >
+              {{ employeeFormGroup.get('age')!.errors?.["serverError"]
                   ? employeeFormGroup.get('age')!.errors?.["serverError"]
                   : 'Invalid age' }}
-              </div>
             </div>
-            <div class="mb-4">
-              <label for="salary" class="block text-gray-700 font-bold mb-2"
-                >Gross Income (&euro;):</label
-              >
-              <input
-                type="number"
-                id="salary"
-                name="salary"
-                class="w-full border border-gray-300 p-2 rounded"
-                formControlName="salary"
-              />
-              <div
-                *ngIf="
-                  employeeFormGroup.get('salary')!.invalid &&
-                  employeeFormGroup.get('salary')!.touched
-                "
-                class="text-red-500"
-              >
-                {{ employeeFormGroup.get('salary')!.errors?.["serverError"]
+          </div>
+          <div class="mb-4">
+            <label for="salary" class="block text-gray-700 font-bold mb-2"
+              >Gross Income (&euro;):</label
+            >
+            <input
+              type="number"
+              id="salary"
+              name="salary"
+              class="w-full border border-gray-300 p-2 rounded"
+              formControlName="salary"
+            />
+            <div
+              *ngIf="
+                employeeFormGroup.get('salary')!.invalid &&
+                employeeFormGroup.get('salary')!.touched
+              "
+              class="text-red-500"
+            >
+              {{ employeeFormGroup.get('salary')!.errors?.["serverError"]
                   ? employeeFormGroup.get('salary')!.errors?.["serverError"]
                   : 'Invalid salary' }}
-              </div>
             </div>
-            <div class="mb-4 flex flex-col justify-end items-end">
-              <button
-                (click)="removeEmployee(i)"
-                class="bg-red-500 text-white px-4 py-2 rounded"
-              >
-                Delete
-              </button>
-            </div>
-          </form>
-        </div>
+          </div>
+          <div class="mb-4 flex flex-col justify-end items-end">
+            <button
+              (click)="removeEmployee(i)"
+              class="bg-red-500 text-white px-4 py-2 rounded"
+            >
+              Delete
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  
+</div>
