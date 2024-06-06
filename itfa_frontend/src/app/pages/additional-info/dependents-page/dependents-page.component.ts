@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Dependents } from 'src/app/interfaces/dependents';
+import { Dependent } from 'src/app/interfaces/dependent';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApiService } from 'src/app/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-dependents-page',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,NgFor,MatProgressSpinnerModule],
+  imports: [CommonModule,ReactiveFormsModule,MatProgressSpinnerModule],
   templateUrl: './dependents-page.component.html',
   styleUrls: ['./dependents-page.component.css']
 })
@@ -35,7 +35,7 @@ export class DependentsPageComponent implements OnInit{
   }
   public isLoading = false;
 
-  public initializeDependentsFormArray(dependents:Dependents[]): void {
+  public initializeDependentsFormArray(dependents:Dependent[]): void {
     dependents.forEach(dependent => {
       this.dependentsFormArray.push(new FormGroup({
         id: new FormControl(dependent.id),

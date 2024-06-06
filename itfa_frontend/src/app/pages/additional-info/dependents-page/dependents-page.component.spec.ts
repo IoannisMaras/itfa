@@ -1,14 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DependentsPageComponent } from './dependents-page.component';
-import { Dependents } from 'src/app/interfaces/dependents';
+import { Dependent } from 'src/app/interfaces/dependent';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('DependentsPageComponent', () => {
   let component: DependentsPageComponent;
   let fixture: ComponentFixture<DependentsPageComponent>;
-  const mockDependents: Dependents[] = [
+  const mockDependents: Dependent[] = [
     {
       name: 'John Doe',
       age: 25,
