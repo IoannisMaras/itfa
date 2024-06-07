@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'vehicles',
     'employees',
     'real_estate',
-    'ai_reccomendations',
+    'ai_recomendations',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,91 @@
+<div class="flex justify-center items-center h-full gap-16">
+  <div *ngIf="isLoading" class="flex flex-col justify-center items-center">
+    <mat-spinner diameter="150"></mat-spinner>
+    <p class="text-xl">Loading...</p>
+  </div>
+  <div
+    *ngIf="!isLoading && details"
+    class="bg-gray-100 p-6 rounded shadow-md w-1/4 h-1/2 flex flex-col gap-4"
+  >
+    <div class="title text-2xl font-bold">Details :</div>
+    <div class="mt-4">
+      <div class="flex p-1">
+        <span class="font-bold">Age:</span>
+        <span class="ml-2">{{ details.personal_details.age }}</span>
+      </div>
+      <div class="flex p-1">
+        <span class="font-bold">Tax Type:</span>
+        <span class="ml-2">{{ details.personal_details.tax_type }}</span>
+      </div>
+      <div class="flex p-1">
+        <span class="font-bold">Country:</span>
+        <span class="ml-2">{{ details.personal_details.country }}</span>
+      </div>
+      <div class="flex p-1">
+        <span class="font-bold">Gross Income:</span>
+        <span class="ml-2"
+          >{{ details.personal_details.gross_income }} €</span
+        >
+      </div>
+      <div class="flex p-1">
+        <span class="font-bold">Total Expenses:</span>
+        <span class="ml-2"
+          >{{ details.personal_details.total_expenses }} €</span
+        >
+      </div>
+    </div>
+    <div class="flex items-center justify-start gap-2">
+        <mat-icon aria-hidden="false" aria-label="family_restroom" fontIcon="family_restroom"></mat-icon><span class="font-bold">Total Dependents :</span><span>{{details.dependents}}</span>
+    </div>
+    <div class="flex items-center justify-start gap-2">
+        <mat-icon aria-hidden="false" aria-label="engineering" fontIcon="engineering"></mat-icon><span class="font-bold">Total Employees :</span><span>{{details.employees}}</span>
+    </div>
+    <div class="flex items-center justify-start gap-2">
+        <mat-icon aria-hidden="false" aria-label="house" fontIcon="house"></mat-icon><span class="font-bold">Total Real Estates :</span><span>{{details.real_estates}}</span>
+    </div>
+    <div class="flex items-center justify-start gap-2">
+        <mat-icon aria-hidden="false" aria-label="directions_car" fontIcon="directions_car"></mat-icon><span class="font-bold">Total Vehicles :</span><span>{{details.vehicles}}</span>
+    </div>
+
+  </div>
+
+  <div
+    *ngIf="!isLoading"
+    class="bg-gray-100 pt-2 rounded shadow-md w-1/4 h-1/2 overflow-hidden"
+  >
+   
+    <div *ngIf="isRecomendationsLoading || recomendations" class="p-4 flex flex-col gap-4 h-full ">
+        <div class="flex items-center justify-start gap-2">
+            <mat-icon aria-hidden="false" aria-label="adjust" fontIcon="adjust" class="scale-150 font-bold"></mat-icon><span class="font-semibold">Ai Assistant</span>
+        </div>
+        <div *ngIf="isRecomendationsLoading" class="mx-3 px-10 border-l-2 border-black overflow-auto grow flex flex-col items-center justify-center">
+            <mat-spinner diameter="50"></mat-spinner>
+            <p class="text-xl">Getting Recomendations...</p>
+        </div>
+        <textarea readonly *ngIf="!isRecomendationsLoading" class="mx-3 px-10 border-l-2 border-black overflow-auto grow">{{recomendations}}</textarea >
+        <div class="flex flex-row gap-1 pl-2">
+            <button (click)="copyRecomendations()">
+                <mat-icon  aria-hidden="false" aria-label="content_copy" fontIcon="content_copy" class=""></mat-icon>
+            </button>
+            <button (click)="getRecomendations()">
+                <mat-icon aria-hidden="false" aria-label="cached" fontIcon="cached" class=""></mat-icon>
+            </button>
+            
+            
+            </div>
+   
+    
+  </div>
+  <div *ngIf="!recomendations && !isRecomendationsLoading" class="flex items-center justify-center h-full w-full">
+    <button
+    (click)="getRecomendations()"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  >
+    Get Recomendations
+  </button>
+  </div>    
+  
+    
+
+</div>
+</div>

@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from openai import OpenAI
 import os
-class AiReccomendations(APIView):
+class AiRecomendations(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self,request):

@@ -7,12 +7,13 @@ from rest_framework.authtoken.views import obtain_auth_token
 from real_estate import views as real_estate_views
 from vehicles import views as vehicles_views
 from employees import views as employees_views
-from ai_reccomendations import views as ai_reccomendations_views
+from ai_recomendations import views as ai_recomendations_views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('login/', obtain_auth_token),
     re_path('register/', acount_views.register),
     re_path('logout/', acount_views.LogoutUserView.as_view()),
+    path('dashboard/', acount_views.DashboardView.as_view()),
     re_path('personal-details/', personal_details_views.PersonalDetailsView.as_view()),
     path('dependents/', dependents_views.DependentsView.as_view()),
     path('dependents/<int:pk>/', dependents_views.DependentsView.as_view()),
@@ -22,5 +23,5 @@ urlpatterns = [
     path('vehicles/<int:pk>/', vehicles_views.VehiclesView.as_view()),
     path('employees/', employees_views.EmployeesView.as_view()),
     path('employees/<int:pk>/', employees_views.EmployeesView.as_view()),
-    path('ai-reccomendations/', ai_reccomendations_views.AiReccomendations.as_view()),
+    path('ai-recomendations/', ai_recomendations_views.AiRecomendations.as_view()),
 ]

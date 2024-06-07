@@ -12,7 +12,7 @@ const defaultRoutes: Routes = [
   {path:'additional-info/employees', pathMatch: 'full', loadComponent: () => import('./pages/additional-info/employees-page/employees-page.component').then(m => m.EmployeesPageComponent)},
   {path:'additional-info/real-estate', pathMatch: 'full', loadComponent: () => import('./pages/additional-info/real-estate-page/real-estate-page.component').then(m => m.RealEstatePageComponent)},
   {path:'additional-info/vehicles', pathMatch: 'full', loadComponent: () => import('./pages/additional-info/vehicles-page/vehicles-page.component').then(m => m.VehiclesPageComponent)},
-  {path:'ai-reccomendations', pathMatch: 'full', loadComponent: () => import('./pages/ai-reccomendations-page/ai-reccomendations-page.component').then(m => m.AiReccomendationsPageComponent)},
+  {path:'ai-recomendations', pathMatch: 'full', loadComponent: () => import('./pages/ai-recomendations-page/ai-recomendations-page.component').then(m => m.AiRecomendationsPageComponent)},
 ];
 
 const routes: Routes = [
