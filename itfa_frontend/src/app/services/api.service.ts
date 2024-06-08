@@ -13,7 +13,7 @@ import { AuthService } from './auth.service';
 export class ApiService {
   constructor(private http: HttpClient,private authService : AuthService, private router: Router, private snackbar: MatSnackBar,private zone: NgZone) { }
 
-  private env: Env = { BACKEND_URL: isDevMode() ?'http://localhost:8000/':'http://0.0.0.0:8000/', DEBUG: false };
+  private env: Env = { BACKEND_URL: isDevMode() ?'http://localhost:8000/':'http://127.0.0.1:8000/', DEBUG: false };
 
 
   /**

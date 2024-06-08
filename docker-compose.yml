@@ -38,7 +38,7 @@ services:
   frontend:
     build:
       context: ./itfa_frontend
-    command: ["http-server", "dist/itfa_frontend"]
+    command: ["http-server", "dist/itfa_frontend","-c-1"]
     # volumes:
     #   - ./itfa_frontend:/app
     ports:

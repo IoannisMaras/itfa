@@ -15,7 +15,7 @@ RUN npm run build
 
 # Serve the Angular app
 RUN npm install -g http-server
-CMD ["http-server", "dist/your-angular-app-name"]
+CMD ["http-server", "dist/itfa-frontend","-p", "8080"]
 
 # Expose port 8080
 EXPOSE 8080

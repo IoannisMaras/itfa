@@ -14,8 +14,10 @@ class AiRecomendations(APIView):
         client = OpenAI(
             api_key=os.environ.get("OPENAI_API_KEY"),
         )   
-
-        personal_details = request.user.personaldetails
+        try:
+            personal_details = request.user.personaldetails
+        except:
+            return Response({"message":"Please first fill in at least your personal details."}, status=status.HTTP_404_NOT_FOUND)
 
         dependents = request.user.dependent_set.all()
 

@@ -30,14 +30,26 @@ class DashboardView(APIView):
 
     def get(self, request):
         user = request.user
-        personal_details = user.personaldetails
+        has_personal_details = False
+        try:
+            personal_details = user.personaldetails
+            serializer = PersonalDetailsSerializer(personal_details)
+            has_personal_details = True
+        except:
+            personal_details = {
+                "gross_income": 0,
+                "total_expenses": 0,
+                "age": 18,
+                "tax_type": 'individual',
+                "country": 'greece'
+            }
         real_estates = user.realestate_set.count()
         vehicles = user.vehicle_set.count()
         employees = user.employee_set.count()
         dependents = user.dependent_set.count()
-        serializer = PersonalDetailsSerializer(personal_details)
+       
         return Response({
-            "personal_details": serializer.data,
+            "personal_details": serializer.data if has_personal_details else personal_details,
             "real_estates": real_estates,
             "vehicles": vehicles,
             "employees": employees,
