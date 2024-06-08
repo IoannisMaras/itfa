@@ -12,8 +12,8 @@ import { AuthService } from './auth.service';
 })
 export class ApiService {
   constructor(private http: HttpClient,private authService : AuthService, private router: Router, private snackbar: MatSnackBar,private zone: NgZone) { }
-  private envUrl = isDevMode() ? "assets/data/config-dev.json" : "assets/data/config.json";
-  private env: Env = { BACKEND_URL: 'http://127.0.0.1:8000/', DEBUG: false };
+
+  private env: Env = { BACKEND_URL: isDevMode() ?'http://localhost:8000/':'http://0.0.0.0:8000/', DEBUG: false };
 
 
   /**
@@ -130,22 +130,6 @@ export class ApiService {
     });
   }
 
-  /**
-  |--------------------------------------------------------------------------
-  | ENV
-  |--------------------------------------------------------------------------
-  **/
-  public initializeEnv(): Observable<Env> {
-    const res = new Subject<Env>();
-    if (this.env.BACKEND_URL != '') {
-      res.next(this.env);
-    } else {
-      this.http.get(this.envUrl).subscribe(response => {
-        res.next(<Env>response);
-      });
-    }
-    return res;
-  }
 
   get getEnv(): Env {
     return this.env;

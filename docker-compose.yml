@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:latest
+    image: postgres:15
     volumes:
       - postgres_data_new:/var/lib/postgresql/data
     environment:
@@ -17,7 +17,8 @@ services:
         context: ./itfa_backend
         args:
           SECRET_KEY: ${SECRET_KEY}
-      command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+      command: >
+        sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
       # volumes:
       #   - ./itfa_backend:/app
       ports:

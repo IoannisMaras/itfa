@@ -24,6 +24,7 @@ export class PersonalDetailsPageComponent implements OnInit{
         error : (error: any) => {
           if(error.status === 404){
             //dont do anything just let the form empty
+            this.isLoading = false;
           }else{
             this.apiService.handleError(error);
           }

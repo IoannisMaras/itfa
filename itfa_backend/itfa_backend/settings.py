@@ -66,7 +66,8 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',
-    'http://0.0.0.0:8080'
+    'http://0.0.0.0:8080',
+    'http://localhost:8080'
 ]
 
 CSRF_COOKIE_SECURE = False
