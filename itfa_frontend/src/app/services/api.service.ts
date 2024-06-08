@@ -108,7 +108,7 @@ export class ApiService {
         } else {
           // The backend returned an unsuccessful response code.
           // The response body may contain clues as to what went wrong,
-          this.snackbar.open(`Backend returned code ${error.status}, ` + `body was: ${error.error.message}`, 'OK');
+          this.snackbar.open(`${error.error.message}`, 'OK');
         }
     });
     
