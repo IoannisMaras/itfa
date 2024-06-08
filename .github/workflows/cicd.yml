@@ -170,7 +170,7 @@ jobs:
 
       - name: Push Docker Images
         run: |
-          services="itfa-backend itfa-frontend"
+          services="itfa_backend itfa_frontend"
           for service in $services; do
             IMAGE_NAME="${{ secrets.DOCKER_USERNAME }}/${service}:latest"
             docker tag ${service} $IMAGE_NAME
