@@ -4,39 +4,44 @@ services:
   db:
     image: postgres:15
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data_new:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: itfa_db
+      POSTGRES_USER: postgresAdmin
+      POSTGRES_PASSWORD: 1234
+    # ports:
+    #   - "5432:5432"
 
   backend:
-    build:
-      context: ./itfa_backend
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-    volumes:
-      - ./backend:/usr/src/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-    environment:
-      DATABASE_NAME: mydatabase
-      DATABASE_USER: myuser
-      DATABASE_PASSWORD: mypassword
-      DATABASE_HOST: db
-      DATABASE_PORT: 5432
+      build:
+        context: ./itfa_backend
+      command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+      # volumes:
+      #   - ./itfa_backend:/app
+      ports:
+        - "8000:8000"
+      depends_on:
+        - db
+      environment:
+        DATABASE_NAME: itfa_db
+        DATABASE_USER: postgresAdmin
+        DATABASE_PASSWORD: 1234
+        DATABASE_HOST: db
+        DATABASE_PORT: 5432
+      links:
+        - db
 
   frontend:
     build:
       context: ./itfa_frontend
-    command: ["http-server", "dist/your-angular-app-name"]
-    volumes:
-      - ./frontend:/usr/src/app
+    command: ["http-server", "dist/itfa_frontend"]
+    # volumes:
+    #   - ./itfa_frontend:/app
     ports:
       - "8080:8080"
     depends_on:
       - backend
 
 volumes:
-  postgres_data:
+  postgres_data_new:
+    driver: local

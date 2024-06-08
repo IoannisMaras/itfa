@@ -3,6 +3,9 @@
 import os
 import sys
 
+print('-----------------------')
+print(os.getenv('DB_HOST'))
+print('-----------------------')
 
 def main():
     """Run administrative tasks."""
