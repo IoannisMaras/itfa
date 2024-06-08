@@ -95,6 +95,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      DJANGO_SETTINGS_MODULE: settings_test.py
       DB_HOST: 127.0.0.1
       DB_PORT: 5432
       DB_NAME: itfa_db
