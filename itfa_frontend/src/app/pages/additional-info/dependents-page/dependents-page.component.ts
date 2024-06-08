@@ -60,7 +60,7 @@ export class DependentsPageComponent implements OnInit{
       };
     });
 
-    this.apiService.postRequest('dependents/', dependents).subscribe({
+    this.apiService.postRequest('dependents/', {'dependents':dependents}).subscribe({
       next : (response: any) => {
         let successFullSaves = 0;
         let failedSaves = 0;
