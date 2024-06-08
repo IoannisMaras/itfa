@@ -3,10 +3,6 @@
 import os
 import sys
 
-print('-----------------------')
-print(os.getenv('DB_HOST'))
-print('-----------------------')
-
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'itfa_backend.settings')

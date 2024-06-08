@@ -21,7 +21,7 @@ urlpatterns = [
     path('real-estates/<int:pk>/', real_estate_views.RealEstateView.as_view()),
     path('vehicles/', vehicles_views.VehiclesView.as_view()),
     path('vehicles/<int:pk>/', vehicles_views.VehiclesView.as_view()),
-    path('employees/', employees_views.EmployeesView.as_view()),
-    path('employees/<int:pk>/', employees_views.EmployeesView.as_view()),
+    path('employees/', employees_views.EmployeesView.as_view(),name='employees'),
+    path('employees/<int:pk>/', employees_views.EmployeesView.as_view(),name='employees'),
     path('ai-recomendations/', ai_recomendations_views.AiRecomendations.as_view()),
 ]

@@ -47,7 +47,7 @@ class EmployeeTests(APILiveServerTestCase):
         updated_employee = Employee.objects.get(id=created_employee_id)
 
         self.assertEqual(updated_employee.name, 'new_test_name')
-        self.assertEqual(updated_employee.gross_income, 25000)
+        self.assertEqual(updated_employee.salary, 25000)
         self.assertEqual(updated_employee.age, 20)
 
         url_delete = reverse('employees', args=[created_employee_id])
