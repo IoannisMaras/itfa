@@ -152,7 +152,12 @@ jobs:
         uses: docker/setup-qemu-action@v2
 
       - name: Build Docker Compose services
-        run: docker-compose -f docker-compose.yml build
+        env:
+          SECRET_KEY: ${{ secrets.OPEN_AI_KEY }}
+
+        run: |
+        echo "OPEN_AI_KEY=${SECRET_KEY}" > .env
+        docker-compose -f docker-compose.yml build --build-arg OPEN_AI_KEY=${SECRET_KEY}
 
   push:
     runs-on: ubuntu-latest
@@ -170,10 +175,10 @@ jobs:
 
       - name: Push Docker Images
         run: |
-          services=$(docker-compose config --services)
+          services="backend frontend"
           for service in $services; do
-            IMAGE_NAME="${{ secrets.DOCKER_USERNAME }}/${service}:latest"
-            docker tag ${service}:latest $IMAGE_NAME
+            IMAGE_NAME="${{ secrets.DOCKER_HUB_USERNAME }}/${service}:latest"
+            docker tag ${service}_latest $IMAGE_NAME
             docker push $IMAGE_NAME
           done
 
