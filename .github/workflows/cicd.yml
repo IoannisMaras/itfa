@@ -94,6 +94,13 @@ jobs:
   test-backend:
     runs-on: ubuntu-latest
 
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_NAME: itfa_db
+      DB_USER: postgresAdmin
+      DB_PASSWORD: 1234
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
