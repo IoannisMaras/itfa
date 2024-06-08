@@ -175,7 +175,7 @@ jobs:
 
       - name: Push Docker Images
         run: |
-          services="backend frontend"
+          services="postgres itfa-backend itfa-frontend"
           for service in $services; do
             IMAGE_NAME="${{ secrets.DOCKER_HUB_USERNAME }}/${service}:latest"
             docker tag ${service}_latest $IMAGE_NAME
