@@ -1,6 +1,6 @@
 # Intelligent Tax Filling App
 
-ITFA is a simple web app where the user inputs his/her tax information and can get reccomandations on how to proceed with it 
+ITFA is a simple web app where the user inputs his/her tax information and can get recomandations on how to proceed with it 
 
 ## Getting Started
 
