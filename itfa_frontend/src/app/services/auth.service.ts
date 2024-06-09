@@ -35,6 +35,10 @@ export class AuthService {
     this.router.navigate(['/register']);
   }
 
+  public redirectToLogin() {
+    this.router.navigate(['/login']);
+  }
+
   public redirectToDashboard() {
     this.router.navigate(['/dashboard']);
   }

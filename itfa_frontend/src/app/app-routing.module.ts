@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 const defaultRoutes: Routes = [
   {path:'dashboard', pathMatch: 'full', loadComponent: () => import('./pages/dashboard-page/dashboard-page.component').then(m => m.DashboardPageComponent)},
@@ -18,6 +19,7 @@ const defaultRoutes: Routes = [
 const routes: Routes = [
   { path: '', component: DefaultComponent, children: defaultRoutes, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginPageComponent },
+  { path: 'register', component: RegisterPageComponent },
 ];
 
 @NgModule({
